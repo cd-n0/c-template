@@ -21,7 +21,7 @@ TESTS = $(TESTSRCS:.c=)
 
 # Directories
 SRCDIR = src
-INCDIR = inc
+INCDIR = $(SRCDIR)/include
 OBJDIR = obj
 
 SRCS = $(wildcard $(SRCDIR)/*.c)
