@@ -11,6 +11,8 @@ ifeq ($(BUILD), debug)
     CFLAGS += $(DEBUG_FLAGS)
 else ifeq ($(BUILD), release)
     CFLAGS += $(RELEASE_FLAGS)
+else
+    $(error Invalid BUILD value)
 endif
 
 # Test source files
