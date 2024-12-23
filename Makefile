@@ -14,7 +14,7 @@ clean:
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^ $(LDLIBS)
 
-$(OBJDIR)/%.o : $(SRCDIR)/%.c 
+$(OBJDIR)/%.o : $(SRCDIR)/%.c $(INCS)
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -o $@ -c $<
 
