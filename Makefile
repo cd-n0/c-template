@@ -33,4 +33,4 @@ test: $(TESTS) $(TESTSRCS)
 compile_flags.txt: Makefile
 	echo "$(CFLAGS)" | tr ' ' '\n'> compile_flags.txt
 
-.PHONY: all clean
+.PHONY: all clean test
