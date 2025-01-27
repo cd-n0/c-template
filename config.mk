@@ -12,4 +12,11 @@ OBJDIR = obj
 SRCS = $(wildcard $(SRCDIR)/*.c)
 OBJS = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
 
+BUILD ?= debug
+ifeq ($(BUILD), debug)
+    CFLAGS += $(DEBUG_FLAGS)
+else ifeq ($(BUILD), release)
+    CFLAGS += $(RELEASE_FLAGS)
+endif
+
 TARGET = target.out

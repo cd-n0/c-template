@@ -1,14 +1,6 @@
 include config.mk
 
-all: debug
-
-# Debug build
-debug: CFLAGS += $(DEBUG_FLAGS)
-debug: $(TARGET)
-
-# Release build
-release: CFLAGS += $(RELEASE_FLAGS)
-release: $(TARGET)
+all: $(TARGET)
 
 # Clean target to remove compiled files
 clean:
@@ -27,4 +19,4 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 # Include dependency files
 -include $(OBJDIR)/*.d
 
-.PHONY: all debug release clean
+.PHONY: all clean
