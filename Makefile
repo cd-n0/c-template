@@ -1,36 +1,30 @@
 include config.mk
 
-################################################################################
+all: debug
 
-all: $(TARGET) compile_flags.txt
+# Debug build
+debug: CFLAGS += $(DEBUG_FLAGS)
+debug: $(TARGET)
+
+# Release build
+release: CFLAGS += $(RELEASE_FLAGS)
+release: $(TARGET)
 
 # Clean target to remove compiled files
 clean:
 	rm -rf $(OBJDIR)
 	rm -f $(TARGET)
-	rm -f $(TESTS)
-	rm -f compile_flags.txt
 
+# Build the main target
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^ $(LDLIBS)
 
-$(OBJDIR)/%.o : $(SRCDIR)/%.c $(INCS)
+# Object file compilation
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(CC) $(CFLAGS) -MMD -MF $(@:.o=.d) -o $@ -c $<
 
-# Compile the test executables
-$(TESTS): $(TESTSRCS)
-	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $@.c $(LDLIBS)
+# Include dependency files
+-include $(OBJDIR)/*.d
 
-# Run the tests
-test: $(TESTS) $(TESTSRCS)
-	for test in $(TESTS); do \
-		./$$test && \
-		echo "TEST $$test OK" || \
-		echo "TEST $$test FAIL"; \
-	done
-
-compile_flags.txt: Makefile
-	echo "$(CFLAGS)" | tr ' ' '\n'> compile_flags.txt
-
-.PHONY: all clean test
+.PHONY: all debug release clean

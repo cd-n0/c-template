@@ -1,7 +1,7 @@
-#include "main.h"
+#include "include/functions.h"
 
 int main(void){
-    printf("Hello World!\n");
+    printHelloWorld();
 
     return 0;
 }
